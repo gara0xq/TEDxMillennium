@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tedx/features/home/presentation/widgets/sections/footer_section.dart';
 
 import '../widgets/custom_app_bar.dart';
 import '../widgets/sections/about_us_section.dart';
@@ -18,8 +19,7 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: SizedBox(
           width: screenWidth,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: const Column(
             spacing: 50,
             children: [
               HeaderSection(),
@@ -27,6 +27,7 @@ class HomeScreen extends StatelessWidget {
               UpcomingEvent(),
               OurBlogsSection(),
               TeamSection(),
+              FooterSection(),
             ],
           ),
         ),
