@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "320630747016",
+    "project_id": "tedxmillennium-21c11",
+    "storage_bucket": "tedxmillennium-21c11.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:320630747016:android:39154f2de97a76b8fa543d",
+        "android_client_info": {
+          "package_name": "com.example.ted"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHkPJ4mnj_5ZoXKylLBO5EQ7Q-KTyl-b8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
