@@ -5,7 +5,7 @@ class CustomButton extends StatelessWidget {
   final void Function()? onTap;
   final String text;
   final double margin;
-  CustomButton({super.key, this.onTap, this.text = "", this.margin = 10});
+  CustomButton({super.key, this.onTap, this.text = "", this.margin = 3});
 
   @override
   Widget build(BuildContext context) {

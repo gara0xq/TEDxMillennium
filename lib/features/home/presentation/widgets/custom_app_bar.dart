@@ -13,7 +13,7 @@ class CustomAppBar {
           child: Image.asset("assets/images/logo.png"),
         ),
       ),
-      leadingWidth: screenWidth > 1200 ? screenWidth / 3.84 : 200,
+      leadingWidth: screenWidth > 1200 ? screenWidth / 3.84 : 150,
       actions: [
         CustomButton(text: "Sign up"),
         CustomButton(text: "Login"),

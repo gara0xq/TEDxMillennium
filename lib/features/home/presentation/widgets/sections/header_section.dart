@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../custom_button.dart';
+import '../section_constraints.dart';
 
 class HeaderSection extends StatelessWidget {
   const HeaderSection({super.key});
@@ -7,13 +8,8 @@ class HeaderSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     bool isMobile = screenWidth < 800;
-    return Container(
-      width: screenWidth,
-      height: screenHeight * 0.8,
-      constraints: const BoxConstraints(maxWidth: 1200),
-      padding: EdgeInsets.symmetric(horizontal: screenWidth < 1200 ? 50 : 0),
+    return SectionConstraints(
       child: Row(
         spacing: 50,
         children: [
@@ -26,9 +22,10 @@ class HeaderSection extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: 40,
               children: [
-                const Text(
+                Text(
                   "Ideas worth spreading.",
-                  style: TextStyle(
+                  textAlign: isMobile ? TextAlign.center : TextAlign.start,
+                  style: const TextStyle(
                     fontSize: 50,
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
