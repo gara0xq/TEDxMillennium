@@ -17,6 +17,7 @@ class UpcomingEvent extends StatelessWidget {
       child: GetBuilder<HomeProvider>(
         builder: (controller) {
           return Skeletonizer(
+            enabled: controller.loading,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: 100,
