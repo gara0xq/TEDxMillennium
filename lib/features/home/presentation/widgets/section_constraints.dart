@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class SectionConstraints extends StatelessWidget {
   final Widget child;
   final bool fixedHeight;
+  final bool extentionSpace;
   const SectionConstraints({
     super.key,
     required this.child,
     this.fixedHeight = true,
+    this.extentionSpace = false,
   });
 
   @override
@@ -19,8 +21,10 @@ class SectionConstraints extends StatelessWidget {
       height:
           fixedHeight
               ? isMobile
-                  ? screenHeight * 0.8 + 400
-                  : screenHeight * 0.8
+                  ? extentionSpace
+                      ? screenHeight * 0.9 + 300
+                      : screenHeight * 0.9
+                  : screenHeight * 0.9
               : null,
       constraints: const BoxConstraints(maxWidth: 1200),
       padding: EdgeInsets.symmetric(

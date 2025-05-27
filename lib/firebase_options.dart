@@ -66,4 +66,5 @@ class DefaultFirebaseOptions {
     projectId: 'tedxmillennium-21c11',
     storageBucket: 'tedxmillennium-21c11.firebasestorage.app',
   );
+
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../provider/home_provider.dart';
 import '../custom_button.dart';
 import '../section_constraints.dart';
 
@@ -12,48 +14,71 @@ class UpcomingEvent extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     bool isMobile = screenWidth < 800;
     return SectionConstraints(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        spacing: 100,
-        children: [
-          Text("Upcoming Event", style: Get.textTheme.headlineLarge),
-          if (isMobile)
-            Center(child: Image.asset("assets/images/TedX.png", scale: 1.6)),
-          Row(
-            spacing: 50,
-            children: [
-              if (!isMobile)
-                Expanded(
-                  child: Center(
+      child: GetBuilder<HomeProvider>(
+        builder: (controller) {
+          return Skeletonizer(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 100,
+              children: [
+                Text("Upcoming Event", style: Get.textTheme.headlineLarge),
+                if (isMobile)
+                  Center(
                     child: Image.asset("assets/images/TedX.png", scale: 1.6),
                   ),
-                ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment:
-                      isMobile
-                          ? CrossAxisAlignment.center
-                          : CrossAxisAlignment.start,
-                  spacing: 10,
+                Row(
+                  spacing: 50,
                   children: [
-                    Text("TEDx Event", style: Get.textTheme.headlineLarge),
-                    Text(
-                      '''Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-enim ad minim veniam''',
-                      textAlign: isMobile ? TextAlign.center : TextAlign.start,
-                      style: const TextStyle(color: Colors.grey, fontSize: 16),
+                    if (!isMobile)
+                      Expanded(
+                        child: Center(
+                          child: Image.asset(
+                            "assets/images/TedX.png",
+                            scale: 1.6,
+                          ),
+                        ),
+                      ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment:
+                            isMobile
+                                ? CrossAxisAlignment.center
+                                : CrossAxisAlignment.start,
+                        spacing: 10,
+                        children: [
+                          Text(
+                            controller.statics.eventTitle,
+                            style: Get.textTheme.headlineLarge,
+                          ),
+                          Text(
+                            controller.statics.eventDescription,
+                            textAlign:
+                                isMobile ? TextAlign.center : TextAlign.start,
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 16,
+                            ),
+                          ),
+                          Text(
+                            controller.statics.date ??
+                                DateTime.now().toString(),
+                            style: Get.textTheme.bodyLarge,
+                          ),
+                          Text(
+                            controller.statics.location,
+                            style: Get.textTheme.bodyLarge,
+                          ),
+                          const SizedBox(height: 10),
+                          CustomButton(text: "Buy a Ticket", margin: 0),
+                        ],
+                      ),
                     ),
-                    Text("30-31st Jan 2021", style: Get.textTheme.bodyLarge),
-                    Text("Anna Auditorium", style: Get.textTheme.bodyLarge),
-                    const SizedBox(height: 10),
-                    CustomButton(text: "Buy a Ticket", margin: 0),
                   ],
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          );
+        },
       ),
     );
   }

@@ -6,6 +6,7 @@ import 'features/home/presentation/screens/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       darkTheme: Themes.darkTheme,
       themeMode: ThemeMode.dark,
-      home: const HomeScreen(),
+      home: HomeScreen(),
     );
   }
 }

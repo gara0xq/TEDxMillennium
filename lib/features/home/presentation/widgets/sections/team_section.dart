@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../section_constraints.dart';
@@ -11,7 +13,7 @@ class TeamSection extends StatelessWidget {
       fixedHeight: false,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        spacing: 100,
+        spacing: 30,
         children: [
           const SizedBox(height: 100),
           Text("Team", style: Theme.of(context).textTheme.headlineLarge),

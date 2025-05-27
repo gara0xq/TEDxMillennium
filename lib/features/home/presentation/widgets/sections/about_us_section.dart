@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../provider/home_provider.dart';
 import '../section_constraints.dart';
 
 class AboutUsSection extends StatelessWidget {
@@ -10,50 +13,57 @@ class AboutUsSection extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     bool isMobile = screenWidth < 800;
     return SectionConstraints(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        spacing: 100,
-        children: [
-          Text("About Us", style: Theme.of(context).textTheme.headlineLarge),
-          Row(
-            spacing: 50,
-            children: [
-              Expanded(
-                child: Text(
-                  '''Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-enim ad minim veniam, quis nostrud exercitation ullamco laboris
-nisi ut aliquip ex ea commodo consequat.
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-dolore eu fugiat nulla pariatur.
-Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-ea commodo consequat''',
-                  textAlign: isMobile ? TextAlign.center : TextAlign.start,
-                  style: const TextStyle(color: Colors.grey, fontSize: 16),
+      child: GetBuilder<HomeProvider>(
+        builder: (controller) {
+          return Skeletonizer(
+            enabled: controller.loading,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 100,
+              children: [
+                Text(
+                  "About Us",
+                  style: Theme.of(context).textTheme.headlineLarge,
                 ),
-              ),
-              if (!isMobile)
-                Expanded(
-                  child: Center(
-                    child: Container(
-                      height: 400,
-                      constraints: const BoxConstraints(maxWidth: 400),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        border: Border.all(color: Colors.white, width: 5),
-                        image: const DecorationImage(
-                          image: AssetImage("assets/images/TEDx banner.png"),
-                          fit: BoxFit.cover,
+                Row(
+                  spacing: 50,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        controller.statics.aboutUs,
+                        textAlign:
+                            isMobile ? TextAlign.center : TextAlign.start,
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 16,
                         ),
                       ),
                     ),
-                  ),
+                    if (!isMobile)
+                      Expanded(
+                        child: Center(
+                          child: Container(
+                            height: 400,
+                            constraints: const BoxConstraints(maxWidth: 400),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              border: Border.all(color: Colors.white, width: 5),
+                              image: const DecorationImage(
+                                image: AssetImage(
+                                  "assets/images/TEDx banner.png",
+                                ),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
                 ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          );
+        },
       ),
     );
   }

@@ -6,8 +6,6 @@ class FooterSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    bool isMobile = screenWidth < 800;
     return Container(
       color: const Color(0xff101010),
       padding: EdgeInsets.symmetric(vertical: 100, horizontal: screenWidth / 5),
@@ -19,7 +17,7 @@ class FooterSection extends StatelessWidget {
               spacing: 30,
               children: [
                 Image.asset("assets/images/TedX.png", scale: 2),
-                Row(
+                const Row(
                   children: [
                     Icon(Icons.facebook),
                     Icon(Icons.facebook),
@@ -30,7 +28,7 @@ class FooterSection extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(
+          const Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [

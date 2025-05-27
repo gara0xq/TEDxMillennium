@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart' as material;
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import 'custom_button.dart';
+import '../provider/home_provider.dart';
 
 class CustomAppBar {
   material.AppBar AppBar(double screenWidth) {
@@ -15,9 +18,26 @@ class CustomAppBar {
       ),
       leadingWidth: screenWidth > 1200 ? screenWidth / 3.84 : 150,
       actions: [
-        CustomButton(text: "Sign up"),
-        CustomButton(text: "Login"),
-        SizedBox(width: screenWidth > 1200 ? screenWidth / 5.8 : 20),
+        GetBuilder<HomeProvider>(
+          builder: (controller) {
+            return Skeletonizer(
+              enabled: controller.loading,
+              ignoreContainers: true,
+              child: Row(
+                children: [
+                  if (controller.statics.hasSignup)
+                    CustomButton(text: "Sign up"),
+                  if (controller.statics.hasLogin) CustomButton(text: "Login"),
+                  if (controller.statics.hasSignup ||
+                      controller.statics.hasLogin)
+                    SizedBox(
+                      width: screenWidth > 1200 ? screenWidth / 5.8 : 20,
+                    ),
+                ],
+              ),
+            );
+          },
+        ),
       ],
       toolbarHeight: 100,
     );
