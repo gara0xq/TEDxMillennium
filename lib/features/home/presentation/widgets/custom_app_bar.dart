@@ -7,7 +7,7 @@ import 'custom_button.dart';
 import '../provider/home_provider.dart';
 
 class CustomAppBar {
-  material.AppBar AppBar(double screenWidth) {
+  material.AppBar AppBar(double screenWidth, bool isAdmin) {
     return material.AppBar(
       leading: material.Padding(
         padding: const EdgeInsets.all(15),
@@ -27,7 +27,11 @@ class CustomAppBar {
                 children: [
                   if (controller.statics.hasSignup)
                     CustomButton(text: "Sign up"),
-                  if (controller.statics.hasLogin) CustomButton(text: "Login"),
+                  if (controller.statics.hasLogin && isAdmin)
+                    CustomButton(
+                      text: "Login",
+                      onTap: () => Get.toNamed('/auth'),
+                    ),
                   if (controller.statics.hasSignup ||
                       controller.statics.hasLogin)
                     SizedBox(

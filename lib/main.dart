@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 import 'core/theme/themes.dart';
+import 'features/auth/presentation/screens/login_screen.dart';
 import 'firebase_options.dart';
 import 'features/home/presentation/screens/home_screen.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,11 +18,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return GetMaterialApp.router(
+      title: "TEDxMillennium",
       debugShowCheckedModeBanner: false,
       darkTheme: Themes.darkTheme,
       themeMode: ThemeMode.dark,
-      home: HomeScreen(),
+      routerDelegate: AppRouterDelegate(),
+      getPages: [
+        GetPage(name: '/', page: () => HomeScreen()),
+        GetPage(name: '/admin', page: () => HomeScreen(isAdmin: true)),
+        GetPage(name: '/auth', page: () => LoginScreen()),
+      ],
+    );
+  }
+}
+
+class AppRouterDelegate extends GetDelegate {
+  @override
+  Widget build(BuildContext context) {
+    return Navigator(
+      onPopPage: (route, result) => route.didPop(result),
+      pages:
+          currentConfiguration != null
+              ? [currentConfiguration!.currentPage!]
+              : [GetNavConfig.fromRoute("/")!.currentPage!],
     );
   }
 }

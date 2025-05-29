@@ -11,14 +11,15 @@ import '../widgets/sections/team_section.dart';
 import '../widgets/sections/upcoming_event.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+  final bool isAdmin;
+  HomeScreen({super.key, this.isAdmin = false});
   final controller = Get.put(HomeProvider());
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: CustomAppBar().AppBar(screenWidth),
+      appBar: CustomAppBar().AppBar(screenWidth, isAdmin),
       body: SingleChildScrollView(
         child: SizedBox(
           width: screenWidth,
