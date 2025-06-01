@@ -27,7 +27,7 @@ class CustomAppBar {
                 children: [
                   if (controller.statics.hasSignup)
                     CustomButton(text: "Sign up"),
-                  if (controller.statics.hasLogin && isAdmin)
+                  if (controller.statics.hasLogin || isAdmin)
                     CustomButton(
                       text: "Login",
                       onTap: () => Get.toNamed('/auth'),

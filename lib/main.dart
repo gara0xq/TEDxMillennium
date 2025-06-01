@@ -26,8 +26,8 @@ class MyApp extends StatelessWidget {
       routerDelegate: AppRouterDelegate(),
       getPages: [
         GetPage(name: '/', page: () => HomeScreen()),
-        GetPage(name: '/admin', page: () => HomeScreen(isAdmin: true)),
         GetPage(name: '/auth', page: () => LoginScreen()),
+        GetPage(name: '/admin', page: () => HomeScreen(isAdmin: true)),
       ],
     );
   }
@@ -36,12 +36,20 @@ class MyApp extends StatelessWidget {
 class AppRouterDelegate extends GetDelegate {
   @override
   Widget build(BuildContext context) {
-    return Navigator(
-      onPopPage: (route, result) => route.didPop(result),
-      pages:
-          currentConfiguration != null
-              ? [currentConfiguration!.currentPage!]
-              : [GetNavConfig.fromRoute("/")!.currentPage!],
+    return GetRouterOutlet.builder(
+      builder: (context, delegate, current) {
+        return Theme(
+          data: Themes.darkTheme,
+          child: Navigator(
+            key: Get.key,
+            onPopPage: (route, result) => route.didPop(result),
+            pages:
+                currentConfiguration != null
+                    ? [currentConfiguration!.currentPage!]
+                    : [GetNavConfig.fromRoute("/")!.currentPage!],
+          ),
+        );
+      },
     );
   }
 }

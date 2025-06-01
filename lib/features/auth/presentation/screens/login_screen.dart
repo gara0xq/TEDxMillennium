@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
+import '../../../home/presentation/widgets/custom_button.dart';
 import '../widgets/input_field.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -53,22 +53,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
 
-                  ElevatedButton(
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {}
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(32),
-                        side: BorderSide(
-                          color: Get.theme.primaryColor,
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                    child: const Text('Sign In'),
-                  ),
+                  CustomButton(text: 'Sign In', align: Alignment.center),
                 ],
               ),
             ),
