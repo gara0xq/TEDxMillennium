@@ -16,23 +16,21 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: InkWell(
-        onTap: onTap,
-        hoverColor: Colors.transparent,
-        focusColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-        splashColor: Colors.transparent,
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-          margin: EdgeInsets.symmetric(horizontal: margin),
-          alignment: align,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(25),
-            border: Border.all(color: Get.theme.colorScheme.primary),
-          ),
-          child: Text(text, style: Get.textTheme.bodyLarge),
+    return InkWell(
+      onTap: onTap,
+      hoverColor: Colors.transparent,
+      focusColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        margin: EdgeInsets.symmetric(horizontal: margin),
+        alignment: align,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          border: Border.all(color: Get.theme.colorScheme.primary),
         ),
+        child: Text(text, style: Get.textTheme.bodyLarge),
       ),
     );
   }
