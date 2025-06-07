@@ -6,7 +6,8 @@ import '../custom_button.dart';
 import '../section_constraints.dart';
 
 class HeaderSection extends StatelessWidget {
-  HeaderSection({super.key});
+  BuildContext? eventContext;
+  HeaderSection({super.key, required this.eventContext});
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -49,7 +50,17 @@ class HeaderSection extends StatelessWidget {
                           color: Colors.grey,
                         ),
                       ),
-                      CustomButton(text: "Upcoming events", margin: 0),
+                      CustomButton(
+                        text: "Upcoming events",
+                        margin: 0,
+                        onTap: () {
+                          Scrollable.ensureVisible(
+                            eventContext!,
+                            duration: const Duration(seconds: 1),
+                            curve: Curves.easeInOut,
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ),

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:tedx/features/dashboard/presentation/screens/base_screen.dart';
 
+import 'binding.dart';
 import 'core/theme/themes.dart';
 import 'features/auth/presentation/screens/login_screen.dart';
+import 'features/home/presentation/screens/blog_screen.dart';
+import 'features/home/presentation/screens/blogs_screen.dart';
 import 'firebase_options.dart';
 import 'features/home/presentation/screens/home_screen.dart';
 
@@ -18,16 +22,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp.router(
+    return GetMaterialApp(
       title: "TEDxMillennium",
       debugShowCheckedModeBanner: false,
       darkTheme: Themes.darkTheme,
       themeMode: ThemeMode.dark,
-      routerDelegate: AppRouterDelegate(),
+      // routerDelegate: AppRouterDelegate(),
+      initialBinding: Binding(),
       getPages: [
         GetPage(name: '/', page: () => HomeScreen()),
         GetPage(name: '/auth', page: () => LoginScreen()),
-        GetPage(name: '/admin', page: () => HomeScreen(isAdmin: true)),
+        GetPage(name: '/dashboard', page: () => BaseScreen()),
+        GetPage(name: '/blogs', page: () => BlogsScreen()),
+        GetPage(name: '/blog/:id', page: () => BlogScreen()),
       ],
     );
   }

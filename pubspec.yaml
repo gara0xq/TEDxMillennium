@@ -20,6 +20,7 @@ dependencies:
   cloud_firestore: ^5.6.8
   skeletonizer: ^2.0.1
   cloudinary: ^1.2.0
+  firebase_auth: ^5.5.4
 
 
 dev_dependencies:

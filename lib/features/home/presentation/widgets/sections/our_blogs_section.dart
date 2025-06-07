@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../provider/home_provider.dart';
+import '../../screens/blog_screen.dart';
 import '../custom_button.dart';
 import '../section_constraints.dart';
 
@@ -77,7 +78,16 @@ class OurBlogsSection extends StatelessWidget {
                               ),
 
                               const SizedBox(height: 10),
-                              CustomButton(text: "Read full blog", margin: 0),
+                              CustomButton(
+                                text: "Read full blog",
+                                margin: 0,
+                                onTap:
+                                    () => Get.to(
+                                      () => BlogScreen(
+                                        blog: controller.blogs.first,
+                                      ),
+                                    ),
+                              ),
                             ],
                           ),
                         ),
@@ -108,7 +118,10 @@ class OurBlogsSection extends StatelessWidget {
                           ),
                       ],
                     ),
-                    CustomButton(text: "All blogs"),
+                    CustomButton(
+                      text: "All blogs",
+                      onTap: () => Get.toNamed('/blogs'),
+                    ),
                   ],
                 ),
               ],
