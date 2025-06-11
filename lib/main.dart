@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.dark,
       // routerDelegate: AppRouterDelegate(),
       initialBinding: Binding(),
+      initialRoute: "",
       getPages: [
         GetPage(name: '/', page: () => HomeScreen()),
         GetPage(name: '/auth', page: () => LoginScreen()),

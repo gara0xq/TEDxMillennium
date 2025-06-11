@@ -6,8 +6,7 @@ import '../custom_button.dart';
 import '../section_constraints.dart';
 
 class HeaderSection extends StatelessWidget {
-  BuildContext? eventContext;
-  HeaderSection({super.key, required this.eventContext});
+  HeaderSection({super.key});
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -55,7 +54,7 @@ class HeaderSection extends StatelessWidget {
                         margin: 0,
                         onTap: () {
                           Scrollable.ensureVisible(
-                            eventContext!,
+                            controller.eventKey.currentContext!,
                             duration: const Duration(seconds: 1),
                             curve: Curves.easeInOut,
                           );

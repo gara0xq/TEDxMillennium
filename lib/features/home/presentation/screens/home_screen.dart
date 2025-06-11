@@ -14,7 +14,6 @@ class HomeScreen extends StatelessWidget {
   final bool isAdmin;
   HomeScreen({super.key, this.isAdmin = false});
   final controller = Get.put(HomeProvider());
-  final eventKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +26,9 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             spacing: 30,
             children: [
-              HeaderSection(eventContext: eventKey.currentContext),
+              HeaderSection(),
               const AboutUsSection(),
-              UpcomingEvent(key: eventKey),
+              UpcomingEvent(key: controller.eventKey),
               OurBlogsSection(),
               TeamSection(),
               FooterSection(),
