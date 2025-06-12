@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: CustomAppBar().AppBar(screenWidth, isAdmin),
+      appBar: CustomAppBar().appBar(screenWidth, isAdmin),
       body: SingleChildScrollView(
         child: SizedBox(
           width: screenWidth,

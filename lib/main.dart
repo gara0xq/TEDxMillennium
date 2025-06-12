@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:tedx/features/dashboard/presentation/screens/base_screen.dart';
 
 import 'binding.dart';
-import 'core/theme/themes.dart';
-import 'features/auth/presentation/screens/login_screen.dart';
-import 'features/home/presentation/screens/blog_screen.dart';
-import 'features/home/presentation/screens/blogs_screen.dart';
 import 'firebase_options.dart';
+import 'core/theme/themes.dart';
+import 'features/dashboard/presentation/screens/base_screen.dart';
+import 'features/auth/presentation/screens/login_screen.dart';
+import 'features/home/presentation/screens/blogs_screen.dart';
 import 'features/home/presentation/screens/home_screen.dart';
 
 void main() async {
@@ -29,13 +28,12 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.dark,
       // routerDelegate: AppRouterDelegate(),
       initialBinding: Binding(),
-      initialRoute: "",
+      initialRoute: "dashboard",
       getPages: [
         GetPage(name: '/', page: () => HomeScreen()),
         GetPage(name: '/auth', page: () => LoginScreen()),
         GetPage(name: '/dashboard', page: () => BaseScreen()),
         GetPage(name: '/blogs', page: () => BlogsScreen()),
-        GetPage(name: '/blog/:id', page: () => BlogScreen()),
       ],
     );
   }

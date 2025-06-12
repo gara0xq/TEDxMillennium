@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart' as material;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -7,9 +6,9 @@ import 'custom_button.dart';
 import '../provider/home_provider.dart';
 
 class CustomAppBar {
-  material.AppBar AppBar(double screenWidth, bool isAdmin) {
-    return material.AppBar(
-      leading: material.Padding(
+  AppBar appBar(double screenWidth, bool isAdmin) {
+    return AppBar(
+      leading: Padding(
         padding: const EdgeInsets.all(15),
         child: Align(
           alignment: Alignment.centerRight,
