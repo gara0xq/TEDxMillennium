@@ -21,7 +21,10 @@ dependencies:
   skeletonizer: ^2.0.1
   cloudinary: ^1.2.0
   firebase_auth: ^5.5.4
-  flutter_launcher_icons: ^0.14.4
+  # flutter_launcher_icons: ^0.14.4
+  # image_field: ^0.0.10
+  # image_picker: ^1.1.2
+  image_picker_web: ^4.0.0
 
 
 dev_dependencies:

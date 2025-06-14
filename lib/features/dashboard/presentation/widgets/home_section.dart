@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../provider/home_section_provider.dart';
+import 'home section/blogs_tap.dart';
 import 'tap_button.dart';
 
 class HomeSection extends StatelessWidget {
@@ -9,6 +11,7 @@ class HomeSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.all(20),
       child: GetBuilder<HomeSectionProvider>(
@@ -16,6 +19,7 @@ class HomeSection extends StatelessWidget {
         builder: (controller) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 20,
             children: [
               Container(
                 width: 200,
@@ -51,6 +55,7 @@ class HomeSection extends StatelessWidget {
                   ],
                 ),
               ),
+              if (controller.tapIndex == 0) Expanded(child: BlogsTap()),
             ],
           );
         },
