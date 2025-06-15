@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
               UpcomingEvent(key: controller.eventKey),
               OurBlogsSection(),
               TeamSection(),
-              FooterSection(),
+              const FooterSection(),
             ],
           ),
         ),

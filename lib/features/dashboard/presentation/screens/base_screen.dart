@@ -122,8 +122,8 @@ class BaseScreen extends StatelessWidget {
               flex: 5,
               child:
                   controller.currentScreen == "home"
-                      ? HomeSection()
-                      : CommitteeSection(),
+                      ? const HomeSection()
+                      : const CommitteeSection(),
             ),
           ],
         );

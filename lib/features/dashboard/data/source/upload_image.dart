@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:cloudinary/cloudinary.dart';
 
 class UploadImage {
@@ -15,11 +14,8 @@ class UploadImage {
         fileBytes: fileBytes,
         resourceType: CloudinaryResourceType.image,
       );
-      log("Image upload response: ${response.url.toString()}");
-      log("Image uploaded successfully: ${response.isSuccessful}");
       return response.url!;
     } catch (e) {
-      log("Error uploading image: $e");
       throw Exception("Error uploading image: $e");
     }
   }

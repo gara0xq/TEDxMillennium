@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:image_picker/image_picker.dart';
-import 'package:image_picker_web/image_picker_web.dart';
+import 'foundation/phone_image_picker.dart';
 
 import '../source/upload_image.dart';
 import '../../domain/entity/blog_entity.dart';
@@ -27,8 +24,13 @@ class DashboardRepoImpl extends DashboardRepo {
   @override
   Future<void> addBlog(BlogEntity blog) async {
     try {
-      blog = blog as BlogModel;
-      _addBlog.addBlog(blog.toJson());
+      final blogModel = BlogModel(
+        content: blog.content,
+        author: blog.author,
+        imageUrl: blog.imageUrl,
+        slogan: blog.slogan,
+      );
+      _addBlog.addBlog(blogModel.toJson());
     } on FirebaseException catch (e) {
       throw Exception("Error fetching blogs: $e");
     }
@@ -64,18 +66,14 @@ class DashboardRepoImpl extends DashboardRepo {
   @override
   Future<String> uploadImage() async {
     try {
-      // final ImagePicker picker = ImagePicker();
-      // final imageFile = await picker.pickImage(source: ImageSource.gallery);
-      // final imageBytes = await imageFile!.readAsBytes().then((e) => e.toList());
-      // final imageFilePath = imageFile.path;
+      Map<String, dynamic> imageData;
 
-      final imageWithBytesPicker = await ImagePickerWeb.getImageAsFile();
-      final imageFile = imageWithBytesPicker as File;
-      final imageBytes = await imageFile.readAsBytes().then((e) => e.toList());
-
-      final imageFilePath = await imageFile.path;
-
-      return await _uploadImage.uploadImage(imageFilePath, imageBytes);
+      PhoneImagePicker _phoneImagePicker = PhoneImagePicker();
+      imageData = await _phoneImagePicker.call();
+      return await _uploadImage.uploadImage(
+        imageData['imageFilePath'],
+        imageData['imageBytes'],
+      );
     } catch (e) {
       throw Exception("Error uploading image: $e");
     }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../provider/home_section_provider.dart';
 
@@ -79,78 +78,117 @@ class BlogsTap extends StatelessWidget {
               onTap: () {
                 Get.dialog(
                   Dialog(
-                    child: Container(
-                      height: 800,
-                      width: width,
-                      constraints: const BoxConstraints(maxWidth: 700),
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(7),
-                        color: const Color(0xff252525),
-                      ),
-                      child: Column(
-                        spacing: 30,
-                        children: [
-                          Text("Add Blog", style: Get.textTheme.headlineLarge),
-                          const SizedBox(height: 30),
-                          TextFormField(
-                            // controller: ,
-                            decoration: InputDecoration(
-                              labelText: "Auther Name",
-                              labelStyle: const TextStyle(
-                                color: Colors.white70,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(7),
-                              ),
-                            ),
+                    child: GetBuilder<HomeSectionProvider>(
+                      builder: (c) {
+                        return Container(
+                          height: 800,
+                          width: width,
+                          constraints: const BoxConstraints(maxWidth: 700),
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(7),
+                            color: const Color(0xff252525),
                           ),
-                          TextFormField(
-                            // controller: ,
-                            decoration: InputDecoration(
-                              labelText: "Slogan",
-                              labelStyle: const TextStyle(
-                                color: Colors.white70,
+                          child: Column(
+                            spacing: 30,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                "Add Blog",
+                                style: Get.textTheme.headlineLarge,
                               ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(7),
-                              ),
-                            ),
-                          ),
-                          TextFormField(
-                            // controller: ,
-                            maxLines: 6,
-                            decoration: InputDecoration(
-                              labelText: "Content",
-                              alignLabelWithHint: true,
-                              labelStyle: const TextStyle(
-                                color: Colors.white70,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(7),
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              controller.uploadImage();
-                            },
-                            child: Container(
-                              height: 50,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.red, width: 2),
-                                borderRadius: BorderRadius.circular(7),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "Upload Image",
-                                  style: TextStyle(color: Colors.white),
+                              TextFormField(
+                                controller: c.authorController,
+                                decoration: InputDecoration(
+                                  labelText: "Auther Name",
+                                  labelStyle: const TextStyle(
+                                    color: Colors.white70,
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(7),
+                                  ),
                                 ),
                               ),
-                            ),
+                              TextFormField(
+                                controller: c.sloganController,
+                                decoration: InputDecoration(
+                                  labelText: "Slogan",
+                                  labelStyle: const TextStyle(
+                                    color: Colors.white70,
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(7),
+                                  ),
+                                ),
+                              ),
+                              TextFormField(
+                                controller: c.contentController,
+                                maxLines: 10,
+                                decoration: InputDecoration(
+                                  labelText: "Content",
+                                  alignLabelWithHint: true,
+                                  labelStyle: const TextStyle(
+                                    color: Colors.white70,
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(7),
+                                  ),
+                                ),
+                              ),
+                              c.loadingImage
+                                  ? const Center(
+                                    child: CircularProgressIndicator(),
+                                  )
+                                  : InkWell(
+                                    onTap: () {
+                                      c.uploadImage();
+                                    },
+                                    child: Container(
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: Colors.red,
+                                          width: 2,
+                                        ),
+                                        borderRadius: BorderRadius.circular(7),
+                                      ),
+                                      child: const Center(
+                                        child: Text(
+                                          "Upload Image",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                              if (c.imageUrl.isNotEmpty)
+                                Image.network(
+                                  c.imageUrl,
+                                  height: 70,
+                                  width: 70,
+                                ),
+                              InkWell(
+                                onTap: () {
+                                  c.addBlog();
+                                },
+                                child: Container(
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: BorderRadius.circular(7),
+                                  ),
+                                  child: const Center(
+                                    child: Text(
+                                      "Confirm",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        );
+                      },
                     ),
                   ),
                 );

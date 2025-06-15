@@ -27,7 +27,7 @@ class TapButton extends StatelessWidget {
           title,
           style: Get.textTheme.bodyLarge!.copyWith(
             fontWeight: FontWeight.bold,
-            color: isActive ? Color(0xff171717) : Colors.white,
+            color: isActive ? const Color(0xff171717) : Colors.white,
           ),
         ),
       ),

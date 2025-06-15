@@ -1,4 +1,6 @@
 import 'dart:developer';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../data/repo/dashboard_repo_impl.dart';
@@ -20,10 +22,15 @@ class HomeSectionProvider extends GetxController {
       _removeBlogUsecase = RemoveBlogUsecase(DashboardRepoImpl()),
       _uploadImageUsecase = UploadImageUsecase(DashboardRepoImpl());
 
+  final authorController = TextEditingController();
+  final sloganController = TextEditingController();
+  final contentController = TextEditingController();
   int tapIndex = 0;
   bool loading = true;
   List<BlogEntity> blogs = [];
   String imageUrl = '';
+  bool loadingImage = false;
+
   @override
   void onInit() {
     Future.wait([fetchBlogs()]).then((_) {
@@ -46,20 +53,18 @@ class HomeSectionProvider extends GetxController {
     }
   }
 
-  Future<void> addBlog(String auther, String slogan, String content) async {
+  Future<void> addBlog() async {
     try {
       if (imageUrl.isNotEmpty) {
         await _addBlogUsecase.call(
           BlogEntity(
-            author: auther,
-            slogan: slogan,
-            content: content,
+            author: authorController.text,
+            slogan: sloganController.text,
+            content: contentController.text,
             imageUrl: imageUrl,
           ),
         );
-        log("Blog added successfully");
       }
-      log("No Image Uploaded");
       await fetchBlogs();
       update();
     } catch (e) {
@@ -70,7 +75,6 @@ class HomeSectionProvider extends GetxController {
   Future<void> removeBlog(BlogEntity blog) async {
     try {
       await _removeBlogUsecase.call(blog);
-      log("Blog removed successfully");
       await fetchBlogs();
       update();
     } catch (e) {
@@ -79,7 +83,14 @@ class HomeSectionProvider extends GetxController {
   }
 
   Future<void> uploadImage() async {
-    imageUrl = await _uploadImageUsecase.call();
-    log(imageUrl);
+    loadingImage = true;
+    update();
+    log("loading");
+    imageUrl = await _uploadImageUsecase.call().then((e) {
+      loadingImage = false;
+      log("uploaded : $e");
+      return e;
+    });
+    update();
   }
 }

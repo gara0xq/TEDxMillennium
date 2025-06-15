@@ -10,7 +10,7 @@ class CommitteeSection extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: Color(0xff191919),
+              color: const Color(0xff191919),
               borderRadius: BorderRadius.circular(7),
             ),
           ),

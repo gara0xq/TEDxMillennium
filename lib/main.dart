@@ -15,8 +15,6 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
-//783963798515812
-//eyEzoiUB0N_LocVsUzBOMTrrMBE
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -30,7 +28,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.dark,
       // routerDelegate: AppRouterDelegate(),
       initialBinding: Binding(),
-      initialRoute: "dashboard",
+      initialRoute: "/dashboard",
       getPages: [
         GetPage(name: '/', page: () => HomeScreen()),
         GetPage(name: '/auth', page: () => LoginScreen()),
