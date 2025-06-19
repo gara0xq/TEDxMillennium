@@ -40,11 +40,7 @@ class OurBlogsSection extends StatelessWidget {
                           borderRadius: BorderRadius.circular(25),
                           border: Border.all(color: Colors.white, width: 5),
                           image: DecorationImage(
-                            image: NetworkImage(
-                              controller.blogs.isEmpty
-                                  ? "https://res.cloudinary.com/dww2nervs/image/upload/v1748314570/malak_hatem_xcrkby.jpg"
-                                  : controller.blogs[0].imageUrl,
-                            ),
+                            image: NetworkImage(controller.blogs[0].imageUrl),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -106,9 +102,9 @@ class OurBlogsSection extends StatelessWidget {
                                     color: Colors.white,
                                     width: 5,
                                   ),
-                                  image: const DecorationImage(
-                                    image: AssetImage(
-                                      "assets/images/malak hatem.jpg",
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                      controller.blogs[0].imageUrl,
                                     ),
                                     fit: BoxFit.cover,
                                   ),

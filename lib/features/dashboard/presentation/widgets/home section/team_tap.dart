@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+
 import '../../provider/home_section_provider.dart';
 
-class BlogsTap extends StatelessWidget {
-  const BlogsTap({super.key});
+class TeamTap extends StatelessWidget {
+  const TeamTap({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +21,9 @@ class BlogsTap extends StatelessWidget {
                 width: width,
                 constraints: const BoxConstraints(maxWidth: 600),
                 child: ListView.builder(
-                  itemCount: controller.blogs.length,
+                  itemCount: controller.teamMembers.length,
                   itemBuilder: (_, i) {
-                    final blog = controller.blogs[i];
+                    final member = controller.teamMembers[i];
                     return Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: width < 900 ? 0 : 15,
@@ -42,7 +43,7 @@ class BlogsTap extends StatelessWidget {
                             children: [
                               CircleAvatar(
                                 radius: 30,
-                                backgroundImage: NetworkImage(blog.imageUrl),
+                                backgroundImage: NetworkImage(member.imageUrl),
                               ),
                               Expanded(
                                 child: Column(
@@ -50,19 +51,12 @@ class BlogsTap extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   spacing: 5,
                                   children: [
-                                    Text(blog.author, maxLines: 1),
+                                    Text(member.name, maxLines: 1),
                                     Text(
-                                      blog.slogan,
+                                      member.role,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ],
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: () => controller.removeBlog(blog),
-                                icon: const Icon(
-                                  Icons.delete,
-                                  color: Colors.red,
                                 ),
                               ),
                             ],
@@ -95,13 +89,13 @@ class BlogsTap extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
-                                "Add Blog",
+                                "Add Member",
                                 style: Get.textTheme.headlineLarge,
                               ),
                               TextFormField(
-                                controller: c.authorController,
+                                controller: c.memberNameController,
                                 decoration: InputDecoration(
-                                  labelText: "Auther Name",
+                                  labelText: "Name",
                                   labelStyle: const TextStyle(
                                     color: Colors.white70,
                                   ),
@@ -111,9 +105,9 @@ class BlogsTap extends StatelessWidget {
                                 ),
                               ),
                               TextFormField(
-                                controller: c.sloganController,
+                                controller: c.roleController,
                                 decoration: InputDecoration(
-                                  labelText: "Slogan",
+                                  labelText: "Role",
                                   labelStyle: const TextStyle(
                                     color: Colors.white70,
                                   ),
@@ -122,27 +116,14 @@ class BlogsTap extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              TextFormField(
-                                controller: c.contentController,
-                                maxLines: 10,
-                                decoration: InputDecoration(
-                                  labelText: "Content",
-                                  alignLabelWithHint: true,
-                                  labelStyle: const TextStyle(
-                                    color: Colors.white70,
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(7),
-                                  ),
-                                ),
-                              ),
+
                               c.loadingImage
                                   ? const Center(
                                     child: CircularProgressIndicator(),
                                   )
                                   : InkWell(
                                     onTap: () {
-                                      c.uploadImage(true);
+                                      c.uploadImage(false);
                                     },
                                     child: Container(
                                       height: 50,
@@ -161,15 +142,16 @@ class BlogsTap extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                              if (c.blogImageUrl.isNotEmpty)
+                              if (c.memberImageUrl.isNotEmpty)
                                 Image.network(
-                                  c.blogImageUrl,
+                                  c.memberImageUrl,
                                   height: 70,
                                   width: 70,
                                 ),
+                              const Spacer(),
                               InkWell(
                                 onTap: () {
-                                  c.addBlog();
+                                  c.addTeamMember();
                                 },
                                 child: Container(
                                   height: 50,

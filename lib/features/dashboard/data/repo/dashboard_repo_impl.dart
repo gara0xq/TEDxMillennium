@@ -1,6 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'foundation/phone_image_picker.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:tedx/features/dashboard/domain/entity/team_member_entity.dart';
 
+import '../model/team_member_model.dart';
+import '../source/add_team_member.dart';
+import '../source/fetch_team.dart';
 import '../source/upload_image.dart';
 import '../../domain/entity/blog_entity.dart';
 import '../../domain/repo/dashboard_repo.dart';
@@ -14,11 +18,15 @@ class DashboardRepoImpl extends DashboardRepo {
   final AddBlog _addBlog;
   final RemoveBlog _removeBlog;
   final UploadImage _uploadImage;
+  final AddTeamMember _addTeamMember;
+  final FetchTeam _fetchTeam;
 
   DashboardRepoImpl()
     : _fetchBlogs = FetchBlogs(FirebaseFirestore.instance),
       _addBlog = AddBlog(FirebaseFirestore.instance),
       _removeBlog = RemoveBlog(FirebaseFirestore.instance),
+      _addTeamMember = AddTeamMember(FirebaseFirestore.instance),
+      _fetchTeam = FetchTeam(FirebaseFirestore.instance),
       _uploadImage = UploadImage();
 
   @override
@@ -66,16 +74,38 @@ class DashboardRepoImpl extends DashboardRepo {
   @override
   Future<String> uploadImage() async {
     try {
-      Map<String, dynamic> imageData;
-
-      PhoneImagePicker _phoneImagePicker = PhoneImagePicker();
-      imageData = await _phoneImagePicker.call();
-      return await _uploadImage.uploadImage(
-        imageData['imageFilePath'],
-        imageData['imageBytes'],
-      );
+      final ImagePicker picker = ImagePicker();
+      final imageFile = await picker.pickImage(source: ImageSource.gallery);
+      final imageBytes = await imageFile!.readAsBytes().then((e) => e.toList());
+      final imageFilePath = imageFile.path;
+      return await _uploadImage.uploadImage(imageFilePath, imageBytes);
     } catch (e) {
       throw Exception("Error uploading image: $e");
+    }
+  }
+
+  @override
+  Future<void> addTeamMember(TeamMemberEntity teamMember) async {
+    try {
+      final member = TeamMemberModel(
+        name: teamMember.name,
+        role: teamMember.role,
+        imageUrl: teamMember.imageUrl,
+      );
+      await _addTeamMember.addTeamMember(member.toJson());
+    } on Exception catch (e) {
+      throw Exception("Error adding team member: $e");
+    }
+  }
+
+  @override
+  Future<List<TeamMemberEntity>> fetchTeamMembers() async {
+    try {
+      return await _fetchTeam.fetchTeam().then(
+        (data) => data.map((e) => TeamMemberModel.fromJson(e)).toList(),
+      );
+    } on Exception catch (e) {
+      throw Exception("Error fetching team members: $e");
     }
   }
 }
