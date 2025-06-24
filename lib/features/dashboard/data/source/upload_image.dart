@@ -1,27 +1,20 @@
-import 'dart:developer';
-import 'dart:io';
-import 'package:imagekit/imagekit.dart';
+import 'package:cloudinary/cloudinary.dart';
 
 class UploadImage {
-  final imagekit = ImageKit.getInstance();
-
-  final config = const Configuration(
-    publicKey: 'public_weUEZzJFUQWgYQCC3SJu+MgRS7Q=',
-    urlEndpoint: 'https://ik.imagekit.io/bmzp7dfho',
-    authenticationEndpoint:
-        'https://tedx-millennium-iecp7h6r0-ali-ahmeds-projects-9146c19c.vercel.app/#/dashboard',
+  final Cloudinary cloudinary = Cloudinary.signedConfig(
+    apiKey: "783963798515812",
+    apiSecret: "eyEzoiUB0N_LocVsUzBOMTrrMBE",
+    cloudName: "dww2nervs",
   );
 
-  UploadImage() {
-    imagekit.setConfig(config);
-  }
-
-  Future<String> uploadImage(File file) async {
+  Future<String> uploadImage(String? filePath, List<int>? fileBytes) async {
     try {
-      log(file.path);
-      final response = await imagekit.upload(file);
-      log(response.url);
-      return response.url;
+      final response = await cloudinary.upload(
+        file: filePath,
+        fileBytes: fileBytes,
+        resourceType: CloudinaryResourceType.image,
+      );
+      return response.url!;
     } catch (e) {
       throw Exception("Error uploading image: $e");
     }

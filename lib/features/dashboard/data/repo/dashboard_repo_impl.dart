@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tedx/features/dashboard/domain/entity/team_member_entity.dart';
@@ -81,8 +79,9 @@ class DashboardRepoImpl extends DashboardRepo {
     try {
       final ImagePicker picker = ImagePicker();
       final imageFile = await picker.pickImage(source: ImageSource.gallery);
-
-      return await _uploadImage.uploadImage(File(imageFile!.path));
+      final imageBytes = await imageFile!.readAsBytes().then((e) => e.toList());
+      final imageFilePath = imageFile.path;
+      return await _uploadImage.uploadImage(imageFilePath, imageBytes);
     } catch (e) {
       throw Exception("Error uploading image: $e");
     }
