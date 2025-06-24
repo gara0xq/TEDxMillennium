@@ -13,6 +13,8 @@ class UploadImage {
         file: filePath,
         fileBytes: fileBytes,
         resourceType: CloudinaryResourceType.image,
+        fileName: filePath?.split('/').last ?? 'image',
+        folder: 'tedx_millennium',
       );
       return response.url!;
     } catch (e) {

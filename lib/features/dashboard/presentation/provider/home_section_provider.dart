@@ -114,6 +114,7 @@ class HomeSectionProvider extends GetxController {
         return e;
       });
       isBlog ? blogImageUrl = response : memberImageUrl = response;
+      update();
     } on Exception catch (e) {
       loadingImage = false;
       update();
