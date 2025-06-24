@@ -37,17 +37,22 @@ class TeamSection extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       spacing: 10,
                       children: [
-                        Container(
-                          width: 250,
-                          height: 250,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.grey,
-                            image: DecorationImage(
-                              image: NetworkImage(member.imageUrl),
-                            ),
-                          ),
+                        CircleAvatar(
+                          radius: 100,
+                          backgroundColor: Colors.grey,
+                          backgroundImage: NetworkImage(member.imageUrl),
                         ),
+                        // Container(
+                        //   width: 250,
+                        //   height: 250,
+                        //   decoration: BoxDecoration(
+                        //     shape: BoxShape.circle,
+                        //     color: Colors.grey,
+                        //     image: DecorationImage(
+                        //       image: NetworkImage(member.imageUrl),
+                        //     ),
+                        //   ),
+                        // ),
                         Text(member.name, style: Get.textTheme.headlineMedium),
                         Text(member.role, style: Get.textTheme.bodyLarge),
                       ],

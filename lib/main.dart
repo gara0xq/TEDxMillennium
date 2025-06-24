@@ -26,7 +26,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       darkTheme: Themes.darkTheme,
       themeMode: ThemeMode.dark,
-      // routerDelegate: AppRouterDelegate(),
       initialBinding: Binding(),
       initialRoute: "/dashboard",
       getPages: [
@@ -35,27 +34,6 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/dashboard', page: () => BaseScreen()),
         GetPage(name: '/blogs', page: () => BlogsScreen()),
       ],
-    );
-  }
-}
-
-class AppRouterDelegate extends GetDelegate {
-  @override
-  Widget build(BuildContext context) {
-    return GetRouterOutlet.builder(
-      builder: (context, delegate, current) {
-        return Theme(
-          data: Themes.darkTheme,
-          child: Navigator(
-            key: Get.key,
-            onPopPage: (route, result) => route.didPop(result),
-            pages:
-                currentConfiguration != null
-                    ? [currentConfiguration!.currentPage!]
-                    : [GetNavConfig.fromRoute("/")!.currentPage!],
-          ),
-        );
-      },
     );
   }
 }

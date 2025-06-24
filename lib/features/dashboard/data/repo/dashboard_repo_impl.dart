@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tedx/features/dashboard/domain/entity/team_member_entity.dart';
@@ -5,6 +7,7 @@ import 'package:tedx/features/dashboard/domain/entity/team_member_entity.dart';
 import '../model/team_member_model.dart';
 import '../source/add_team_member.dart';
 import '../source/fetch_team.dart';
+import '../source/update_statics.dart';
 import '../source/upload_image.dart';
 import '../../domain/entity/blog_entity.dart';
 import '../../domain/repo/dashboard_repo.dart';
@@ -20,6 +23,7 @@ class DashboardRepoImpl extends DashboardRepo {
   final UploadImage _uploadImage;
   final AddTeamMember _addTeamMember;
   final FetchTeam _fetchTeam;
+  final UpdateStatics _updateStatics;
 
   DashboardRepoImpl()
     : _fetchBlogs = FetchBlogs(FirebaseFirestore.instance),
@@ -27,7 +31,8 @@ class DashboardRepoImpl extends DashboardRepo {
       _removeBlog = RemoveBlog(FirebaseFirestore.instance),
       _addTeamMember = AddTeamMember(FirebaseFirestore.instance),
       _fetchTeam = FetchTeam(FirebaseFirestore.instance),
-      _uploadImage = UploadImage();
+      _uploadImage = UploadImage(),
+      _updateStatics = UpdateStatics(FirebaseFirestore.instance);
 
   @override
   Future<void> addBlog(BlogEntity blog) async {
@@ -76,9 +81,8 @@ class DashboardRepoImpl extends DashboardRepo {
     try {
       final ImagePicker picker = ImagePicker();
       final imageFile = await picker.pickImage(source: ImageSource.gallery);
-      final imageBytes = await imageFile!.readAsBytes().then((e) => e.toList());
-      final imageFilePath = imageFile.path;
-      return await _uploadImage.uploadImage(imageFilePath, imageBytes);
+
+      return await _uploadImage.uploadImage(File(imageFile!.path));
     } catch (e) {
       throw Exception("Error uploading image: $e");
     }
@@ -106,6 +110,15 @@ class DashboardRepoImpl extends DashboardRepo {
       );
     } on Exception catch (e) {
       throw Exception("Error fetching team members: $e");
+    }
+  }
+
+  @override
+  Future<void> updateStatics(Map<String, dynamic> statics) async {
+    try {
+      await _updateStatics.updateStatics(statics);
+    } on Exception catch (e) {
+      throw Exception("Error updating statics: $e");
     }
   }
 }

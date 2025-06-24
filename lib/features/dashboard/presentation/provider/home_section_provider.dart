@@ -2,12 +2,14 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../home/presentation/provider/home_provider.dart';
 
 import '../../data/repo/dashboard_repo_impl.dart';
 import '../../domain/entity/blog_entity.dart';
 import '../../domain/entity/team_member_entity.dart';
 import '../../domain/usecase/add_team_member_usecase.dart';
 import '../../domain/usecase/fetch_team_members_usecase.dart';
+import '../../domain/usecase/update_statics_usecase.dart';
 import '../../domain/usecase/upload_image_usecase.dart';
 import '../../domain/usecase/add_blog_usecase.dart';
 import '../../domain/usecase/fetch_blogs_usecase.dart';
@@ -20,6 +22,7 @@ class HomeSectionProvider extends GetxController {
   final UploadImageUsecase _uploadImageUsecase;
   final FetchTeamMembersUsecase _fetchTeamMembersUsecase;
   final AddTeamMemberUsecase _addTeamMemberUsecase;
+  final UpdateStaticsUsecase _updateStaticsUsecase;
 
   HomeSectionProvider()
     : _fetchBlogsUsecase = FetchBlogsUsecase(DashboardRepoImpl()),
@@ -27,7 +30,8 @@ class HomeSectionProvider extends GetxController {
       _removeBlogUsecase = RemoveBlogUsecase(DashboardRepoImpl()),
       _uploadImageUsecase = UploadImageUsecase(DashboardRepoImpl()),
       _fetchTeamMembersUsecase = FetchTeamMembersUsecase(DashboardRepoImpl()),
-      _addTeamMemberUsecase = AddTeamMemberUsecase(DashboardRepoImpl());
+      _addTeamMemberUsecase = AddTeamMemberUsecase(DashboardRepoImpl()),
+      _updateStaticsUsecase = UpdateStaticsUsecase(DashboardRepoImpl());
 
   final authorController = TextEditingController();
   final sloganController = TextEditingController();
@@ -36,13 +40,14 @@ class HomeSectionProvider extends GetxController {
   final memberNameController = TextEditingController();
   final roleController = TextEditingController();
 
-  int tapIndex = 0;
+  int tapIndex = 1;
   bool loading = true;
   List<BlogEntity> blogs = [];
   List<TeamMemberEntity> teamMembers = [];
   String blogImageUrl = '';
   String memberImageUrl = '';
   bool loadingImage = false;
+  bool hasEvent = false;
 
   @override
   void onInit() {
@@ -50,6 +55,8 @@ class HomeSectionProvider extends GetxController {
       loading = false;
       update();
     });
+    final controller = Get.find<HomeProvider>();
+    hasEvent = controller.statics.hasEvent;
     super.onInit();
   }
 
@@ -100,12 +107,18 @@ class HomeSectionProvider extends GetxController {
     loadingImage = true;
     update();
     log("loading");
-    final response = await _uploadImageUsecase.call().then((e) {
+    try {
+      final response = await _uploadImageUsecase.call().then((e) {
+        loadingImage = false;
+        log("uploaded : $e");
+        return e;
+      });
+      isBlog ? blogImageUrl = response : memberImageUrl = response;
+    } on Exception catch (e) {
       loadingImage = false;
-      log("uploaded : $e");
-      return e;
-    });
-    isBlog ? blogImageUrl = response : memberImageUrl = response;
+      update();
+      throw Exception("Error uploading image: $e");
+    }
 
     update();
   }
@@ -134,6 +147,19 @@ class HomeSectionProvider extends GetxController {
       teamMembers = await _fetchTeamMembersUsecase.call();
     } on Exception catch (e) {
       throw Exception("Error fetching team members: $e");
+    }
+  }
+
+  void eventCheckBox() {}
+
+  Future<void> updateStatics(value) async {
+    try {
+      hasEvent = value;
+      await _updateStaticsUsecase.call({'has-event': hasEvent});
+      log("Statics updated successfully");
+      update();
+    } catch (e) {
+      log("Error updating statics: $e");
     }
   }
 }

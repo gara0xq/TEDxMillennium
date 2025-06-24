@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../provider/home_section_provider.dart';
 import 'home section/blogs_tap.dart';
+import 'home section/event_tap.dart';
 import 'home section/team_tap.dart';
 import 'tap_button.dart';
 
@@ -56,7 +57,8 @@ class HomeSection extends StatelessWidget {
                 ),
               ),
               if (controller.tapIndex == 0) const Expanded(child: BlogsTap()),
-              if (controller.tapIndex == 2) Expanded(child: TeamTap()),
+              if (controller.tapIndex == 1) const Expanded(child: EventTap()),
+              if (controller.tapIndex == 2) const Expanded(child: TeamTap()),
             ],
           );
         },

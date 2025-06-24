@@ -8,4 +8,5 @@ abstract class DashboardRepo {
   Future<String> uploadImage();
   Future<List<TeamMemberEntity>> fetchTeamMembers();
   Future<void> addTeamMember(TeamMemberEntity teamMember);
+  Future<void> updateStatics(Map<String, dynamic> statics);
 }
