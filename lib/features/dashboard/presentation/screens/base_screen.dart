@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../provider/committee_section_provider.dart';
 import '../provider/dashboard_provider.dart';
 import '../widgets/committee_section.dart';
 import '../widgets/custom_app_bar.dart';
@@ -9,7 +10,7 @@ import '../widgets/side_button.dart';
 
 class BaseScreen extends StatelessWidget {
   BaseScreen({super.key});
-  final controller = Get.put(DashboardProvider());
+  final controller = Get.put(CommitteeSectionProvider());
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -66,68 +67,70 @@ class BaseScreen extends StatelessWidget {
                 ),
               )
               : null,
-      body: Obx(() {
-        return Row(
-          children: [
-            if (width > 900)
-              Expanded(
-                child: Container(
-                  color: const Color(0xff131313),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    spacing: 20,
-                    children: [
-                      const SizedBox(height: 20),
-                      SideButton(
-                        title: "Home Screen",
-                        onTap: () => controller.changeScreen('home'),
-                      ),
-                      SideButton(
-                        title: "GD Committee",
-                        onTap: () => controller.changeScreen('gd'),
-                      ),
-                      SideButton(
-                        title: "CW Committee",
-                        onTap: () => controller.changeScreen('cw'),
-                      ),
-                      SideButton(
-                        title: "HR Committee",
-                        onTap: () => controller.changeScreen('hr'),
-                      ),
-                      SideButton(
-                        title: "PR Committee",
-                        onTap: () => controller.changeScreen('pr'),
-                      ),
-                      SideButton(
-                        title: "OC Committee",
-                        onTap: () => controller.changeScreen('oc'),
-                      ),
-                      SideButton(
-                        title: "Research Committee",
-                        onTap: () => controller.changeScreen('research'),
-                      ),
-                      SideButton(
-                        title: "Marketing Committee",
-                        onTap: () => controller.changeScreen('marketing'),
-                      ),
-                      SideButton(
-                        title: "Media Committee",
-                        onTap: () => controller.changeScreen('media'),
-                      ),
-                    ],
+      body: GetBuilder<CommitteeSectionProvider>(
+        builder: (c) {
+          return Row(
+            children: [
+              if (width > 900)
+                Expanded(
+                  child: Container(
+                    color: const Color(0xff131313),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      spacing: 20,
+                      children: [
+                        const SizedBox(height: 20),
+                        SideButton(
+                          title: "Home Screen",
+                          onTap: () => c.changeScreen('home'),
+                        ),
+                        SideButton(
+                          title: "GD Committee",
+                          onTap: () => c.changeScreen('gd'),
+                        ),
+                        SideButton(
+                          title: "CW Committee",
+                          onTap: () => c.changeScreen('cw'),
+                        ),
+                        SideButton(
+                          title: "HR Committee",
+                          onTap: () => c.changeScreen('hr'),
+                        ),
+                        SideButton(
+                          title: "PR Committee",
+                          onTap: () => c.changeScreen('pr'),
+                        ),
+                        SideButton(
+                          title: "OC Committee",
+                          onTap: () => c.changeScreen('oc'),
+                        ),
+                        SideButton(
+                          title: "Research Committee",
+                          onTap: () => c.changeScreen('research'),
+                        ),
+                        SideButton(
+                          title: "Marketing Committee",
+                          onTap: () => c.changeScreen('marketing'),
+                        ),
+                        SideButton(
+                          title: "Media Committee",
+                          onTap: () => c.changeScreen('media'),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
+              Expanded(
+                flex: 5,
+                child:
+                    c.committeeName == "home"
+                        ? HomeSection()
+                        : CommitteeSection(committeeName: c.committeeName),
               ),
-            Expanded(
-              flex: 5,
-              child:
-                  controller.currentScreen == "home"
-                      ? const HomeSection()
-                      : const CommitteeSection(),
-            ),
-          ],
-        );
-      }),
+            ],
+          );
+        },
+      ),
     );
   }
 }

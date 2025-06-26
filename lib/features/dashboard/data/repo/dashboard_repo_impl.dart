@@ -1,9 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tedx/features/dashboard/domain/entity/event_entity.dart';
 import 'package:tedx/features/dashboard/domain/entity/team_member_entity.dart';
 
+import '../../domain/entity/member_entity.dart';
+import '../model/event_model.dart';
+import '../model/member_model.dart';
 import '../model/team_member_model.dart';
+import '../source/add_member.dart';
 import '../source/add_team_member.dart';
+import '../source/fetch_event.dart';
+import '../source/fetch_members.dart';
 import '../source/fetch_team.dart';
 import '../source/update_statics.dart';
 import '../source/upload_image.dart';
@@ -22,6 +29,9 @@ class DashboardRepoImpl extends DashboardRepo {
   final AddTeamMember _addTeamMember;
   final FetchTeam _fetchTeam;
   final UpdateStatics _updateStatics;
+  final FetchEvent _fetchEvent;
+  final FetchMembers _fetchMembers;
+  final AddMember _addMember;
 
   DashboardRepoImpl()
     : _fetchBlogs = FetchBlogs(FirebaseFirestore.instance),
@@ -30,7 +40,10 @@ class DashboardRepoImpl extends DashboardRepo {
       _addTeamMember = AddTeamMember(FirebaseFirestore.instance),
       _fetchTeam = FetchTeam(FirebaseFirestore.instance),
       _uploadImage = UploadImage(),
-      _updateStatics = UpdateStatics(FirebaseFirestore.instance);
+      _updateStatics = UpdateStatics(FirebaseFirestore.instance),
+      _fetchEvent = FetchEvent(FirebaseFirestore.instance),
+      _fetchMembers = FetchMembers(FirebaseFirestore.instance),
+      _addMember = AddMember(FirebaseFirestore.instance);
 
   @override
   Future<void> addBlog(BlogEntity blog) async {
@@ -118,6 +131,31 @@ class DashboardRepoImpl extends DashboardRepo {
       await _updateStatics.updateStatics(statics);
     } on Exception catch (e) {
       throw Exception("Error updating statics: $e");
+    }
+  }
+
+  @override
+  Future<EventEntity> fetchEvents() {
+    return _fetchEvent.fetchEvents().then((data) => EventModel.fromJson(data));
+  }
+
+  @override
+  Future<List<MemberModel>> fetchMembers(String committeeName) async {
+    try {
+      final data = await _fetchMembers.fetchMembers(committeeName);
+      return data.map((e) => MemberModel.fromJson(e)).toList();
+    } on Exception catch (e) {
+      throw Exception("Error fetching members: $e");
+    }
+  }
+
+  @override
+  Future<void> addMember(MemberEntity member, String committeeName) async {
+    try {
+      final memberModel = MemberModel(name: member.name, role: member.role);
+      await _addMember.addMember(memberModel.toJson(committeeName));
+    } on Exception catch (e) {
+      throw Exception("Error adding member: $e");
     }
   }
 }

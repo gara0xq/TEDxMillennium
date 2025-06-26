@@ -49,22 +49,23 @@ class HeaderSection extends StatelessWidget {
                           color: Colors.grey,
                         ),
                       ),
-                      CustomButton(
-                        text: "Upcoming events",
-                        margin: 0,
-                        onTap: () {
-                          Scrollable.ensureVisible(
-                            controller.eventKey.currentContext!,
-                            duration: const Duration(seconds: 1),
-                            curve: Curves.easeInOut,
-                          );
-                        },
-                      ),
+                      if (controller.statics.hasEvent)
+                        CustomButton(
+                          text: "Upcoming events",
+                          margin: 0,
+                          onTap: () {
+                            Scrollable.ensureVisible(
+                              controller.eventKey.currentContext!,
+                              duration: const Duration(seconds: 1),
+                              curve: Curves.easeInOut,
+                            );
+                          },
+                        ),
                     ],
                   ),
                 ),
                 if (!isMobile)
-                  Expanded(child: Image.asset("assets/images/circle.png")),
+                  Expanded(child: Image.network("assets/images/circle.png")),
               ],
             ),
           );

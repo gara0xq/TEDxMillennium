@@ -28,7 +28,8 @@ class HomeScreen extends StatelessWidget {
             children: [
               HeaderSection(),
               const AboutUsSection(),
-              UpcomingEvent(key: controller.eventKey),
+              if (controller.statics.hasEvent)
+                UpcomingEvent(key: controller.eventKey),
               OurBlogsSection(),
               TeamSection(),
               const FooterSection(),

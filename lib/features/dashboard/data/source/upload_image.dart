@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloudinary/cloudinary.dart';
 
 class UploadImage {
@@ -16,7 +18,8 @@ class UploadImage {
         fileName: filePath?.split('/').last ?? 'image',
         folder: 'tedx_millennium',
       );
-      return response.url!;
+      log(response.secureUrl!);
+      return response.secureUrl!;
     } catch (e) {
       throw Exception("Error uploading image: $e");
     }

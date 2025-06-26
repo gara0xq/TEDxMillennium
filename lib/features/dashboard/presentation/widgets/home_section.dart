@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../provider/committee_section_provider.dart';
 import '../provider/home_section_provider.dart';
 import 'home section/blogs_tap.dart';
 import 'home section/event_tap.dart';
@@ -8,8 +9,8 @@ import 'home section/team_tap.dart';
 import 'tap_button.dart';
 
 class HomeSection extends StatelessWidget {
-  const HomeSection({super.key});
-
+  HomeSection({super.key});
+  final controller = Get.find<CommitteeSectionProvider>();
   @override
   Widget build(BuildContext context) {
     // double width = MediaQuery.of(context).size.width;
