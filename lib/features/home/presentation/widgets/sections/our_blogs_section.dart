@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../provider/home_provider.dart';
 import '../../screens/blog_screen.dart';
@@ -20,7 +19,7 @@ class OurBlogsSection extends StatelessWidget {
         init: HomeProvider(),
         builder: (controller) {
           return controller.blogs.isEmpty
-              ? Center(child: CircularProgressIndicator())
+              ? const Center(child: CircularProgressIndicator())
               : Stack(
                 children: [
                   if (!isMobile)
