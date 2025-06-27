@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../provider/committee_section_provider.dart';
-import '../provider/dashboard_provider.dart';
 import '../widgets/committee_section.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/home_section.dart';
 import '../widgets/side_button.dart';
 
 class BaseScreen extends StatelessWidget {
-  BaseScreen({super.key});
-  final controller = Get.put(CommitteeSectionProvider());
+  final String role;
+  BaseScreen({super.key, this.role = "hr"});
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(CommitteeSectionProvider(committeeName: role));
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: CustomAppBar().appBar(width),
@@ -26,42 +26,51 @@ class BaseScreen extends StatelessWidget {
                     spacing: 20,
                     children: [
                       const SizedBox(height: 20),
-                      SideButton(
-                        title: "Home Screen",
-                        onTap: () => controller.changeScreen('home'),
-                      ),
-                      SideButton(
-                        title: "GD Committee",
-                        onTap: () => controller.changeScreen('gd'),
-                      ),
-                      SideButton(
-                        title: "CW Committee",
-                        onTap: () => controller.changeScreen('cw'),
-                      ),
-                      SideButton(
-                        title: "HR Committee",
-                        onTap: () => controller.changeScreen('hr'),
-                      ),
-                      SideButton(
-                        title: "PR Committee",
-                        onTap: () => controller.changeScreen('pr'),
-                      ),
-                      SideButton(
-                        title: "OC Committee",
-                        onTap: () => controller.changeScreen('oc'),
-                      ),
-                      SideButton(
-                        title: "Research Committee",
-                        onTap: () => controller.changeScreen('research'),
-                      ),
-                      SideButton(
-                        title: "Marketing Committee",
-                        onTap: () => controller.changeScreen('marketing'),
-                      ),
-                      SideButton(
-                        title: "Media Committee",
-                        onTap: () => controller.changeScreen('media'),
-                      ),
+                      if (role == "admin")
+                        SideButton(
+                          title: "Home Screen",
+                          onTap: () => controller.changeScreen('home'),
+                        ),
+                      if (role == "admin" || role == "gd")
+                        SideButton(
+                          title: "GD Committee",
+                          onTap: () => controller.changeScreen('gd'),
+                        ),
+                      if (role == "admin" || role == "cw")
+                        SideButton(
+                          title: "CW Committee",
+                          onTap: () => controller.changeScreen('cw'),
+                        ),
+                      if (role == "admin" || role == "hr")
+                        SideButton(
+                          title: "HR Committee",
+                          onTap: () => controller.changeScreen('hr'),
+                        ),
+                      if (role == "admin" || role == "pr")
+                        SideButton(
+                          title: "PR Committee",
+                          onTap: () => controller.changeScreen('pr'),
+                        ),
+                      if (role == "admin" || role == "oc")
+                        SideButton(
+                          title: "OC Committee",
+                          onTap: () => controller.changeScreen('oc'),
+                        ),
+                      if (role == "admin" || role == "reasearch")
+                        SideButton(
+                          title: "Research Committee",
+                          onTap: () => controller.changeScreen('research'),
+                        ),
+                      if (role == "admin" || role == "marketing")
+                        SideButton(
+                          title: "Marketing Committee",
+                          onTap: () => controller.changeScreen('marketing'),
+                        ),
+                      if (role == "admin" || role == "media")
+                        SideButton(
+                          title: "Media Committee",
+                          onTap: () => controller.changeScreen('media'),
+                        ),
                     ],
                   ),
                 ),
@@ -80,42 +89,51 @@ class BaseScreen extends StatelessWidget {
                       spacing: 20,
                       children: [
                         const SizedBox(height: 20),
-                        SideButton(
-                          title: "Home Screen",
-                          onTap: () => c.changeScreen('home'),
-                        ),
-                        SideButton(
-                          title: "GD Committee",
-                          onTap: () => c.changeScreen('gd'),
-                        ),
-                        SideButton(
-                          title: "CW Committee",
-                          onTap: () => c.changeScreen('cw'),
-                        ),
-                        SideButton(
-                          title: "HR Committee",
-                          onTap: () => c.changeScreen('hr'),
-                        ),
-                        SideButton(
-                          title: "PR Committee",
-                          onTap: () => c.changeScreen('pr'),
-                        ),
-                        SideButton(
-                          title: "OC Committee",
-                          onTap: () => c.changeScreen('oc'),
-                        ),
-                        SideButton(
-                          title: "Research Committee",
-                          onTap: () => c.changeScreen('research'),
-                        ),
-                        SideButton(
-                          title: "Marketing Committee",
-                          onTap: () => c.changeScreen('marketing'),
-                        ),
-                        SideButton(
-                          title: "Media Committee",
-                          onTap: () => c.changeScreen('media'),
-                        ),
+                        if (role == "admin")
+                          SideButton(
+                            title: "Home Screen",
+                            onTap: () => c.changeScreen('home'),
+                          ),
+                        if (role == "admin" || role == "gd")
+                          SideButton(
+                            title: "GD Committee",
+                            onTap: () => c.changeScreen('gd'),
+                          ),
+                        if (role == "admin" || role == "cw")
+                          SideButton(
+                            title: "CW Committee",
+                            onTap: () => c.changeScreen('cw'),
+                          ),
+                        if (role == "admin" || role == "hr")
+                          SideButton(
+                            title: "HR Committee",
+                            onTap: () => c.changeScreen('hr'),
+                          ),
+                        if (role == "admin" || role == "pr")
+                          SideButton(
+                            title: "PR Committee",
+                            onTap: () => c.changeScreen('pr'),
+                          ),
+                        if (role == "admin" || role == "oc")
+                          SideButton(
+                            title: "OC Committee",
+                            onTap: () => c.changeScreen('oc'),
+                          ),
+                        if (role == "admin" || role == "research")
+                          SideButton(
+                            title: "Research Committee",
+                            onTap: () => c.changeScreen('research'),
+                          ),
+                        if (role == "admin" || role == "marketing")
+                          SideButton(
+                            title: "Marketing Committee",
+                            onTap: () => c.changeScreen('marketing'),
+                          ),
+                        if (role == "admin" || role == "media")
+                          SideButton(
+                            title: "Media Committee",
+                            onTap: () => c.changeScreen('media'),
+                          ),
                       ],
                     ),
                   ),
@@ -123,9 +141,9 @@ class BaseScreen extends StatelessWidget {
               Expanded(
                 flex: 5,
                 child:
-                    c.committeeName == "home"
+                    c.committeeName == "home" && role == "admin"
                         ? HomeSection()
-                        : CommitteeSection(committeeName: c.committeeName),
+                        : CommitteeSection(committeeName: role),
               ),
             ],
           );

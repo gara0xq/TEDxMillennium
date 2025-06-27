@@ -1,6 +1,4 @@
 import 'package:tedx/features/dashboard/data/model/member_model.dart';
-
-import '../entity/member_entity.dart';
 import '../repo/dashboard_repo.dart';
 
 class FetchMemberUseCase {

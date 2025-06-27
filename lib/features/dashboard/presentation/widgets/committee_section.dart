@@ -13,7 +13,7 @@ class CommitteeSection extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return GetBuilder<CommitteeSectionProvider>(
-      init: CommitteeSectionProvider(),
+      init: CommitteeSectionProvider(committeeName: committeeName),
       builder: (controller) {
         return Padding(
           padding: const EdgeInsets.all(20),
@@ -32,7 +32,7 @@ class CommitteeSection extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "${committeeName.toUpperCase()} Committee",
+                      "${controller.committeeName.toUpperCase()} Committee",
                       style: Get.textTheme.headlineMedium,
                     ),
                     Text(
@@ -110,7 +110,7 @@ class CommitteeSection extends StatelessWidget {
                                             ),
                                           ),
                                         ),
-                                        const Spacer(),
+                                        if (width > 900) const Spacer(),
                                       ],
                                     ),
                                   ),

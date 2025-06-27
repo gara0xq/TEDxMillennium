@@ -49,7 +49,7 @@ class HomeSectionProvider extends GetxController {
   final dateController = TextEditingController();
   final locationController = TextEditingController();
 
-  int tapIndex = 1;
+  int tapIndex = 0;
   bool loading = true;
   List<BlogEntity> blogs = [];
   List<TeamMemberEntity> teamMembers = [];

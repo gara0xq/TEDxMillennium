@@ -14,7 +14,7 @@ class CommitteeSectionProvider extends GetxController {
   final FetchMemberUseCase _fetchCommitteeMembersUseCase;
   final AddMemberUsecase _addMemberUsecase;
 
-  CommitteeSectionProvider()
+  CommitteeSectionProvider({required this.committeeName})
     : _fetchCommitteeMembersUseCase = FetchMemberUseCase(DashboardRepoImpl()),
       _addMemberUsecase = AddMemberUsecase(DashboardRepoImpl());
 

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import 'binding.dart';
 import 'firebase_options.dart';
 import 'core/theme/themes.dart';
 import 'features/dashboard/presentation/screens/base_screen.dart';
@@ -27,7 +26,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       darkTheme: Themes.darkTheme,
       themeMode: ThemeMode.dark,
-      initialBinding: Binding(),
       initialRoute: "/",
       getPages: [
         GetPage(name: '/', page: () => HomeScreen()),
