@@ -10,8 +10,12 @@ class FooterSection extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     return Container(
       color: const Color(0xff101010),
-      padding: EdgeInsets.symmetric(vertical: 100, horizontal: screenWidth / 5),
+      padding: EdgeInsets.symmetric(
+        vertical: 100,
+        horizontal: screenWidth > 900 ? screenWidth / 5 : 20,
+      ),
       child: Row(
+        spacing: 30,
         children: [
           Expanded(
             child: Column(
@@ -32,8 +36,8 @@ class FooterSection extends StatelessWidget {
                           ),
                       child: Image.asset(
                         "assets/icons/facebook.png",
-                        width: 30,
-                        height: 30,
+                        width: 20,
+                        height: 20,
                       ),
                     ),
                     InkWell(
@@ -46,8 +50,8 @@ class FooterSection extends StatelessWidget {
                           ),
                       child: Image.asset(
                         "assets/icons/instagram.png",
-                        width: 30,
-                        height: 30,
+                        width: 20,
+                        height: 20,
                       ),
                     ),
                     InkWell(
@@ -60,8 +64,8 @@ class FooterSection extends StatelessWidget {
                           ),
                       child: Image.asset(
                         "assets/icons/tiktok.png",
-                        width: 30,
-                        height: 30,
+                        width: 20,
+                        height: 20,
                       ),
                     ),
                     InkWell(
@@ -74,8 +78,8 @@ class FooterSection extends StatelessWidget {
                           ),
                       child: Image.asset(
                         "assets/icons/linkedin.png",
-                        width: 30,
-                        height: 30,
+                        width: 20,
+                        height: 20,
                       ),
                     ),
                   ],
@@ -87,9 +91,16 @@ class FooterSection extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text("Contact Us", style: Get.textTheme.bodyLarge),
-                const Text("+20 122 839 7372"),
-                const Text("tedxmillenniumlanguageschool@gmail.com"),
+                Text(
+                  "Contact Us",
+                  style: Get.textTheme.bodyLarge,
+                  textAlign: TextAlign.right,
+                ),
+                const Text("+20 122 839 7372", textAlign: TextAlign.right),
+                const Text(
+                  "tedxmillenniumlanguageschool@gmail.com",
+                  textAlign: TextAlign.right,
+                ),
               ],
             ),
           ),
