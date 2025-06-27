@@ -65,7 +65,7 @@ class HeaderSection extends StatelessWidget {
                   ),
                 ),
                 if (!isMobile)
-                  Expanded(child: Image.network("assets/images/circle.png")),
+                  Expanded(child: Image.asset("assets/images/circle.png")),
               ],
             ),
           );
