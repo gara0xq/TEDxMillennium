@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
 
 import '../screens/home_screen.dart';
@@ -24,6 +22,6 @@ class SplashProvider extends GetxController {
     }
     timer.value =
         "${deff.inHours}:${deff.inMinutes % 60}:${(deff.inSeconds % 60) % 60}";
-    Future.delayed(Duration(seconds: 1), () => chechTime());
+    Future.delayed(const Duration(seconds: 1), () => chechTime());
   }
 }
