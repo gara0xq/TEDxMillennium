@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FooterSection extends StatelessWidget {
   const FooterSection({super.key});
@@ -21,25 +22,61 @@ class FooterSection extends StatelessWidget {
                 Row(
                   spacing: 10,
                   children: [
-                    Image.asset(
-                      "assets/icons/facebook.png",
-                      width: 30,
-                      height: 30,
+                    InkWell(
+                      onTap:
+                          () => launchUrl(
+                            Uri.parse(
+                              'https://www.facebook.com/profile.php?id=61572482630021',
+                            ),
+                            mode: LaunchMode.externalApplication,
+                          ),
+                      child: Image.asset(
+                        "assets/icons/facebook.png",
+                        width: 30,
+                        height: 30,
+                      ),
                     ),
-                    Image.asset(
-                      "assets/icons/instagram.png",
-                      width: 30,
-                      height: 30,
+                    InkWell(
+                      onTap:
+                          () => launchUrl(
+                            Uri.parse(
+                              'https://www.instagram.com/tedxmillennium',
+                            ),
+                            mode: LaunchMode.externalApplication,
+                          ),
+                      child: Image.asset(
+                        "assets/icons/instagram.png",
+                        width: 30,
+                        height: 30,
+                      ),
                     ),
-                    Image.asset(
-                      "assets/icons/tiktok.png",
-                      width: 30,
-                      height: 30,
+                    InkWell(
+                      onTap:
+                          () => launchUrl(
+                            Uri.parse(
+                              'https://www.tiktok.com/@tedx.millennium',
+                            ),
+                            mode: LaunchMode.externalApplication,
+                          ),
+                      child: Image.asset(
+                        "assets/icons/tiktok.png",
+                        width: 30,
+                        height: 30,
+                      ),
                     ),
-                    Image.asset(
-                      "assets/icons/linkedin.png",
-                      width: 30,
-                      height: 30,
+                    InkWell(
+                      onTap:
+                          () => launchUrl(
+                            Uri.parse(
+                              'https://www.linkedin.com/company/tedxmillennium',
+                            ),
+                            mode: LaunchMode.externalApplication,
+                          ),
+                      child: Image.asset(
+                        "assets/icons/linkedin.png",
+                        width: 30,
+                        height: 30,
+                      ),
                     ),
                   ],
                 ),
@@ -51,8 +88,8 @@ class FooterSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text("Contact Us", style: Get.textTheme.bodyLarge),
-                Text("+20 100 0000 000"),
-                Text("example@gamil.com"),
+                const Text("+20 122 839 7372"),
+                const Text("tedxmillenniumlanguageschool@gmail.com"),
               ],
             ),
           ),
