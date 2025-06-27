@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class FooterSection extends StatelessWidget {
   const FooterSection({super.key});
@@ -17,22 +18,39 @@ class FooterSection extends StatelessWidget {
               spacing: 30,
               children: [
                 Image.asset("assets/images/TedX.png", scale: 2),
-                const Row(
+                Row(
+                  spacing: 10,
                   children: [
-                    Icon(Icons.facebook),
-                    Icon(Icons.facebook),
-                    Icon(Icons.facebook),
-                    Icon(Icons.facebook),
+                    Image.asset(
+                      "assets/icons/facebook.png",
+                      width: 30,
+                      height: 30,
+                    ),
+                    Image.asset(
+                      "assets/icons/instagram.png",
+                      width: 30,
+                      height: 30,
+                    ),
+                    Image.asset(
+                      "assets/icons/tiktok.png",
+                      width: 30,
+                      height: 30,
+                    ),
+                    Image.asset(
+                      "assets/icons/linkedin.png",
+                      width: 30,
+                      height: 30,
+                    ),
                   ],
                 ),
               ],
             ),
           ),
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text("Contact Us"),
+                Text("Contact Us", style: Get.textTheme.bodyLarge),
                 Text("+20 100 0000 000"),
                 Text("example@gamil.com"),
               ],

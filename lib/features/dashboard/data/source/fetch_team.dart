@@ -7,17 +7,8 @@ class FetchTeam {
 
   Future<List<Map<String, dynamic>>> fetchTeam() async {
     try {
-      final snapshot =
-          await _firestore.collection('team').orderBy("name").get();
-      return snapshot.docs.map((doc) {
-        var data = doc.data();
-        if (data["name"] == "Ahs") {
-          data["name"] = "Ali Ahmed";
-          return data;
-        } else {
-          return doc.data();
-        }
-      }).toList();
+      final snapshot = await _firestore.collection('team').orderBy("k").get();
+      return snapshot.docs.map((doc) => doc.data()).toList();
     } catch (e) {
       throw Exception("Error fetching blogs: $e");
     }
