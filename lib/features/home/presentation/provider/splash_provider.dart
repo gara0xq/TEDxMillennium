@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../screens/home_screen.dart';
 
 class SplashProvider extends GetxController {
-  DateTime expirationTime = DateTime(2025, 6, 28, 14);
+  DateTime expirationTime = DateTime(2025, 7, 28, 9);
   DateTime currentTime = DateTime.now();
   RxString timer = "".obs;
 

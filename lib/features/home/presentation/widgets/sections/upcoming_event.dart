@@ -78,7 +78,11 @@ class UpcomingEvent extends StatelessWidget {
                                 style: Get.textTheme.bodyLarge,
                               ),
                               const SizedBox(height: 10),
-                              CustomButton(text: "Buy a Ticket", margin: 0),
+                              CustomButton(
+                                onTap: () => Get.toNamed("/tickets"),
+                                text: "Buy a Ticket",
+                                margin: 0,
+                              ),
                             ],
                           ),
                         ),
